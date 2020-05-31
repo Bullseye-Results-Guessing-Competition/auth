@@ -47,7 +47,11 @@ export class UsersService {
         'email',
         createUserRequstDto.email,
       ),
-    );
+    ) || Utils.isDefined(
+      await this.usersRepository.findOneByKey(
+        'username',
+        createUserRequstDto.username,
+      ));
     if (isUserExist) {
       throw new ConflictException();
     }
